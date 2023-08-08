@@ -3,10 +3,9 @@
 int mdc(int, int);
 
 int main(void) {
-
-    printf("MDC(15, 9) = %d\n", mdc(15, 9));
-    printf("MDC(180, 150) = %d\n", mdc(180, 150));
-    printf("MDC(60, 28) = %d\n", mdc(60, 28));
+    printf("MDC(15, 9)      = %d\n", mdc(15, 9));
+    printf("MDC(180, 150)   = %d\n", mdc(180, 150));
+    printf("MDC(60, 28)     = %d\n", mdc(60, 28));
 
     return 0;
 }

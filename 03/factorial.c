@@ -1,20 +1,20 @@
 #include <stdio.h>
 
-int fatorial(int);
+int factorial(int);
 
 int main(void) {
-    printf("Fatorial de 5: %d\n", fatorial(5));
-    printf("Fatorial de 7: %d\n", fatorial(7));
-    printf("Fatorial de 9: %d\n", fatorial(9));
-    printf("Fatorial de 11: %d\n", fatorial(11));
+    printf("F(5): %d\n", factorial(5));
+    printf("F(7): %d\n", factorial(7));
+    printf("F(9): %d\n", factorial(9));
+    printf("F(11): %d\n", factorial(11));
 
     return 0;
 }
 
-int fatorial(int n) {
+int factorial(int n) {
     if (n <= 1) {
         return 1;
     }
 
-    return (n * fatorial(n-1));
+    return (n * factorial(n-1));
 }

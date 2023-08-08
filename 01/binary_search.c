@@ -1,67 +1,64 @@
 #include <stdio.h>
 
-int pesquisa_binaria(int[], int);
-int pesquisa_binaria_recursiva(int[], int, int, int);
+int binary_search(int[], int);
+int recursive_binary_search(int[], int, int, int);
 
 int main() {
-
-    int lista_ordenada[] = {0, 5, 7, 24, 45, 59, 82};
+    int sorted_list[] = {0, 5, 7, 24, 45, 59, 82};
     
-    printf("%d\n", pesquisa_binaria(lista_ordenada, 7));
-    printf("%d\n", pesquisa_binaria(lista_ordenada, 59));
-    printf("%d\n", pesquisa_binaria(lista_ordenada, 99));
+    printf("%d\n", binary_search(sorted_list, 7));
+    printf("%d\n", binary_search(sorted_list, 59));
+    printf("%d\n", binary_search(sorted_list, 99));
     
     puts("-------\n");
 
-    int baixo = 0;
-    int alto = sizeof(&lista_ordenada) - 1;
+    int low = 0;
+    int high = sizeof(&sorted_list) - 1;
     
-    printf("%d\n", pesquisa_binaria_recursiva(lista_ordenada, 7, baixo, alto));
-    printf("%d\n", pesquisa_binaria_recursiva(lista_ordenada, 59, baixo, alto));
-    printf("%d\n", pesquisa_binaria_recursiva(lista_ordenada, 99, baixo, alto));
+    printf("%d\n", recursive_binary_search(sorted_list, 7, low, high));
+    printf("%d\n", recursive_binary_search(sorted_list, 59, low, high));
+    printf("%d\n", recursive_binary_search(sorted_list, 99, low, high));
     
     return 0;
 }
 
-int pesquisa_binaria(int lista[], int item) {
-
-    int baixo = 0;
-    int alto = sizeof(&lista) - 1;
-    int meio, chute;
+int binary_search(int list[], int item) {
+    int low = 0;
+    int high = sizeof(&list) - 1;
+    int mid, guess;
     
-    while (baixo <= alto) {
-        meio = (baixo + alto) / 2;
-        chute = lista[meio];
+    while (low <= high) {
+        mid = (low + high) / 2;
+        guess = list[mid];
         
-        if (chute == item) {
-            return meio;
+        if (guess == item) {
+            return mid;
         }
        
-        if (chute > item) {
-            alto = meio - 1;
+        if (guess > item) {
+            high = mid - 1;
         } else {
-            baixo = meio + 1;
+            low = mid + 1;
         }
     }
     
     return -1;
 }
 
-int pesquisa_binaria_recursiva(int lista[], int item, int baixo, int alto) {
-
-    if (baixo <= alto) {
-        int meio = (baixo + alto) / 2;
-        int chute = lista[meio];
+int recursive_binary_search(int list[], int item, int low, int high) {
+    if (low <= high) {
+        int mid = (low + high) / 2;
+        int guess = list[mid];
         
-        if (chute == item) {
-            return meio;
+        if (guess == item) {
+            return mid;
         }
         
-        if (chute > item) {
-            return pesquisa_binaria_recursiva(lista, item, baixo, (meio-1));
+        if (guess > item) {
+            return recursive_binary_search(list, item, low, (mid-1));
         }
             
-        return pesquisa_binaria_recursiva(lista, item, (meio+1), alto);
+        return recursive_binary_search(list, item, (mid+1), high);
     }
 
     return -1;

@@ -1,83 +1,78 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Estrutura para representar um nó em uma lista de adjacências
 struct Node {
     int data;
     struct Node* next;
 };
 
-// Estrutura para representar um grafo com uma lista de adjacências
 struct Graph {
-    int numVertices;
-    struct Node** adjLists;
+    int numberVertices;
+    struct Node** adjacentList;
 };
 
-// Função para criar um novo nó com um dado vértice
 struct Node* createNode(int data) {
     struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
     newNode->data = data;
     newNode->next = NULL;
+
     return newNode;
 }
 
-// Função para criar um grafo com um número específico de vértices
-struct Graph* createGraph(int numVertices) {
+struct Graph* createGraph(int numberVertices) {
     struct Graph* graph = (struct Graph*)malloc(sizeof(struct Graph));
-    graph->numVertices = numVertices;
-    graph->adjLists = (struct Node*)malloc(numVertices * sizeof(struct Node));
+    graph->numberVertices = numberVertices;
+    graph->adjacentList = (struct Node*)malloc(numberVertices * sizeof(struct Node));
 
-    int i;
-    for (i = 0; i < numVertices; i++)
-        graph->adjLists[i] = NULL;
+    for (int i = 0; i < numberVertices; i++) {
+        graph->adjacentList[i] = NULL;
+    }
 
     return graph;
 }
 
-// Função para adicionar uma aresta ao grafo
 void addEdge(struct Graph* graph, int src, int dest) {
     struct Node* newNode = createNode(dest);
-    newNode->next = graph->adjLists[src];
-    graph->adjLists[src] = newNode;
+    newNode->next = graph->adjacentList[src];
+    graph->adjacentList[src] = newNode;
 
-    // Como o grafo é não-direcionado, também precisamos adicionar a aresta no sentido inverso
     newNode = createNode(src);
-    newNode->next = graph->adjLists[dest];
-    graph->adjLists[dest] = newNode;
+    newNode->next = graph->adjacentList[dest];
+    graph->adjacentList[dest] = newNode;
 }
 
-// Função para realizar a busca em largura (BFS) no grafo
 void BFS(struct Graph* graph, int startVertex) {
-    int* visited = (int*)malloc(graph->numVertices * sizeof(int));
+    int* visited = (int*)malloc(graph->numberVertices * sizeof(int));
     int i;
 
-    // Inicializa o array de visitados como falso (0)
-    for (i = 0; i < graph->numVertices; i++)
+    for (i = 0; i < graph->numberVertices; i++) {
         visited[i] = 0;
+    }
 
-    // Cria uma fila para armazenar os vértices a serem visitados
     struct Node* queue = createNode(startVertex);
     visited[startVertex] = 1;
 
     while (queue != NULL) {
         int currentVertex = queue->data;
-        printf("Visitando vertice %d\n", currentVertex);
 
-        // Percorre todos os vértices adjacentes e os adiciona à fila se ainda não foram visitados
-        struct Node* temp = graph->adjLists[currentVertex];
+        printf("Visiting vertex %d\n", currentVertex);
+
+        struct Node* temp = graph->adjacentList[currentVertex];
         while (temp != NULL) {
             int adjVertex = temp->data;
+
             if (visited[adjVertex] == 0) {
                 visited[adjVertex] = 1;
                 queue->next = createNode(adjVertex);
                 queue = queue->next;
             }
+
             temp = temp->next;
         }
 
-        // Move para o próximo nó da fila
         struct Node* oldNode = queue;
         queue = queue->next;
+
         free(oldNode);
     }
 
@@ -94,7 +89,8 @@ int main() {
     addEdge(graph, 3, 4);
     addEdge(graph, 4, 5);
 
-    printf("Realizando a busca em largura (BFS) a partir do vertice 0:\n");
+    printf("BFS from vertex 0:\n");
+
     BFS(graph, 0);
 
     return 0;

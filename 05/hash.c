@@ -2,89 +2,91 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define TAMANHO_TABELA 10
+#define MAX_SIZE 10
 
 typedef struct {
-    char chave[50];
-    int valor;
-} Elemento;
+    char key[50];
+    int value;
+} Box;
 
 typedef struct {
-    Elemento* elementos[TAMANHO_TABELA];
-} TabelaHash;
+    Box* boxes[MAX_SIZE];
+} HashTable;
 
-TabelaHash* criarTabelaHash() {
-    TabelaHash* tabela = (TabelaHash*) malloc(sizeof(TabelaHash));
-    for (int i = 0; i < TAMANHO_TABELA; i++) {
-        tabela->elementos[i] = NULL;
-    }
-    return tabela;
-}
+HashTable* createHashTable() {
+    HashTable* table = (HashTable*) malloc(sizeof(HashTable));
 
-int calcularIndice(char* chave) {
-    int soma = 0;
-    for (int i = 0; i < strlen(chave); i++) {
-        soma += chave[i];
-    }
-    return soma % TAMANHO_TABELA;
-}
-
-void inserir(TabelaHash* tabela, char* chave, int valor) {
-    int indice = calcularIndice(chave);
-
-    Elemento* elemento = (Elemento*) malloc(sizeof(Elemento));
-    strcpy(elemento->chave, chave);
-    elemento->valor = valor;
-
-    tabela->elementos[indice] = elemento;
-}
-
-int buscar(TabelaHash* tabela, char* chave) {
-    int indice = calcularIndice(chave);
-
-    Elemento* elemento = tabela->elementos[indice];
-
-    if (elemento != NULL && strcmp(elemento->chave, chave) == 0) {
-        return elemento->valor;
+    for (int i = 0; i < MAX_SIZE; i++) {
+        table->boxes[i] = NULL;
     }
 
-    return -1; // Valor não encontrado
+    return table;
 }
 
-void remover(TabelaHash* tabela, char* chave) {
-    int indice = calcularIndice(chave);
+int calculateIndex(char* key) {
+    int sum = 0;
 
-    Elemento* elemento = tabela->elementos[indice];
+    for (int i = 0; i < strlen(key); i++) {
+        sum += key[i];
+    }
 
-    if (elemento != NULL && strcmp(elemento->chave, chave) == 0) {
+    return sum % MAX_SIZE;
+}
+
+void insertOnHashTable(HashTable* table, char* key, int value) {
+    int index = calculateIndex(key);
+    Box* elemento = (Box*) malloc(sizeof(Box));
+
+    strcpy(elemento->key, key);
+    elemento->value = value;
+    table->boxes[index] = elemento;
+}
+
+int searchOnHashTable(HashTable* table, char* key) {
+    int index = calculateIndex(key);
+    Box* elemento = table->boxes[index];
+
+    if (elemento != NULL && strcmp(elemento->key, key) == 0) {
+        return elemento->value;
+    }
+
+    return -1; // Not found
+}
+
+void removeFromHashTable(HashTable* table, char* key) {
+    int index = calculateIndex(key);
+    Box* elemento = table->boxes[index];
+
+    if (elemento != NULL && strcmp(elemento->key, key) == 0) {
         free(elemento);
-        tabela->elementos[indice] = NULL;
+        table->boxes[index] = NULL;
     }
 }
 
-void liberarTabelaHash(TabelaHash* tabela) {
-    for (int i = 0; i < TAMANHO_TABELA; i++) {
-        if (tabela->elementos[i] != NULL) {
-            free(tabela->elementos[i]);
+void freeHashTable(HashTable* table) {
+    for (int i = 0; i < MAX_SIZE; i++) {
+        if (table->boxes[i] != NULL) {
+            free(table->boxes[i]);
         }
     }
-    free(tabela);
+
+    free(table);
 }
 
 int main() {
-    TabelaHash* tabela = criarTabelaHash();
+    HashTable* table = createHashTable();
 
-    inserir(tabela, "chave1", 10);
-    inserir(tabela, "chave2", 20);
-    inserir(tabela, "chave3", 30);
+    insertOnHashTable(table, "key_1", 10);
+    insertOnHashTable(table, "key_2", 20);
+    insertOnHashTable(table, "key_3", 30);
 
-    printf("%d\n", buscar(tabela, "chave2")); // Saída: 20
+    printf("%d\n", searchOnHashTable(table, "key_2"));
 
-    remover(tabela, "chave1");
+    removeFromHashTable(table, "key_1");
 
-    printf("%d\n", buscar(tabela, "chave1")); // Saída: -1
+    printf("%d\n", searchOnHashTable(table, "key_1"));
 
-    liberarTabelaHash(tabela);
+    freeHashTable(table);
 
     return 0;
 }

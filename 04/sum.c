@@ -6,8 +6,8 @@ int recursive_sum(int*, int, int);
 int main(void) {
     int values[4] = {1, 2, 3, 4};
 
-    printf("Soma: %d\n", sum(values, 4));
-    printf("Soma Recursiva: %d\n", recursive_sum(values, 4, 0));
+    printf("Sum: %d\n", sum(values, 4));
+    printf("Recursive Sum: %d\n", recursive_sum(values, 4, 0));
 
     return 0;
 }
