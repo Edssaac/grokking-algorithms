@@ -1,0 +1,11 @@
+Tabelas hash, também conhecidas como hash tables ou dictionaries, são estruturas de dados amplamente utilizadas na ciência da computação para armazenar e recuperar informações de forma eficiente. Elas oferecem um mecanismo de pesquisa rápido e eficaz, permitindo o acesso aos dados em tempo constante, em média.
+
+Uma tabela hash consiste em um conjunto de "slots" ou "buckets" que são usados para armazenar os elementos. Cada slot é associado a uma função de hash, que é responsável por converter a chave do elemento em um índice dentro da tabela. A função de hash mapeia a chave para um valor inteiro, que é usado para determinar o slot correspondente.
+
+Quando um elemento precisa ser inserido na tabela hash, a função de hash é aplicada à sua chave para calcular o índice onde ele será armazenado. Se dois elementos tiverem a mesma chave e resultarem no mesmo índice, ocorre o que é chamado de "colisão". Existem várias estratégias para lidar com colisões, como encadeamento separado (utilizando listas ligadas nos slots) ou endereçamento aberto (encontrando o próximo slot disponível).
+
+Uma vez que os elementos estão armazenados na tabela hash, a recuperação dos dados é extremamente eficiente. Ao procurar um elemento, a função de hash é novamente aplicada à sua chave para determinar o índice correspondente. Em seguida, o elemento pode ser recuperado diretamente do slot associado ao índice, sem a necessidade de percorrer toda a estrutura de dados.
+
+As tabelas hash são amplamente utilizadas em diversas aplicações, como bancos de dados, compiladores, sistemas de cache, algoritmos de busca e muitas outras áreas da computação. Elas oferecem uma maneira eficiente de armazenar e acessar informações, reduzindo o tempo de busca e otimizando o desempenho do sistema.
+
+No entanto, é importante escolher uma boa função de hash para minimizar as colisões e distribuir os elementos de forma uniforme pela tabela. Além disso, o tamanho da tabela também é um fator crítico, pois um tamanho muito pequeno pode resultar em mais colisões, enquanto um tamanho muito grande desperdiça espaço de memória. A escolha adequada desses parâmetros é essencial para garantir um desempenho ideal da tabela hash.
