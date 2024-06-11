@@ -1,4 +1,4 @@
-## Entendendo Algoritmos: Um guia ilustrado para programadores e outros curiosos <br> (Aditya Y. Bhargava)
+<h2 align="center">Entendendo Algoritmos: <br> Um guia ilustrado para programadores e outros curiosos <br> (Aditya Y. Bhargava)</h2>
 
 > O livro Entendendo Algoritmos apresenta uma abordagem agradável para esse tópico essencial da ciência da computação. Nele, você aprenderá como aplicar
 > algoritmos comuns nos problemas de programação enfrentados diariamente. Você começará com tarefas básicas como a ordenação e a pesquisa. Com a prática,
