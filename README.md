@@ -8,7 +8,7 @@ Disponível em:
 
 [![Amazon](https://img.shields.io/badge/amazon-52b5f7?style=for-the-badge&logo=amazon&logoColor=white)](https://www.amazon.com.br/dp/8575225634)
 
-### Algoritmos disponíveis neste repositório
+## Algoritmos disponíveis neste repositório
 
 - [Binary Search](https://github.com/Edssaac/grokking-algorithms/tree/main/01)
 - [Selection Sort](https://github.com/Edssaac/grokking-algorithms/tree/main/02)
